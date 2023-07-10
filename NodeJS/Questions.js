@@ -1,10 +1,7 @@
-
 // COMMAND = "node Questions"
 // + Use this command in terminal to run node and any code below
 
-
 // __________________________________________________________________
-
 
 // const path = require ("path");
 
@@ -15,9 +12,7 @@
 //     console.log(key);
 // }
 
-
 // __________________________________________________________________
-
 
 // // everything you have when you run the command... [an array]
 // console.log(process.argv);
@@ -34,9 +29,7 @@
 // console.log (greeting);
 // console.log (user);
 
-
 // __________________________________________________________________
-
 
 // // BELOW ***
 // // create a small question list, take in answers then return the answers in a synamic string✅
@@ -80,37 +73,99 @@
 //   );
 // });
 
+// __________________________________________________________________
+
+// // BELOW ***
+// // Create a timer counting in 500ms delays logged to the console ✅
+// // Create a timer written as a percentage ✅
+
+// const waitTime = 3000;
+// console.log(`setting a ${waitTime/1000} second delay`);
+// const timerFinished = () => {
+//     clearInterval(interval)
+//     console.log("done")
+// };
+
+// setTimeout(timerFinished, waitTime);
+
+// const waitInterval = 500;
+// let currentTime = 0;
+
+// const incTime = () => {
+//     currentTime += waitInterval;
+//     const p = Math.floor ((currentTime / waitTime) * 100);
+//     process.stdout.clearLine();
+//     process.stdout.cursorTo(0);
+//     process.stdout.write(`waiting... ${p}`);
+// };
+
+// const interval = setInterval(incTime, waitInterval);
 
 // __________________________________________________________________
+
+// // BELOW ***
+// // retrieve information on how much memory and date/time files use
+
+// const path = require("path");
+
+// console.log (path.basename(__filename));
+// const util = require("util");
+// const v8 = require("v8");
+// // add aphended information to the path using 'path.join'
+// const dirUploads = path.join(
+//     __dirname,
+//     "www",
+//     "files",
+//     "uploads"
+// );
+// util.log(dirUploads);
+// util.log(path.basename(__filename));
+
+// util.log(v8.getHeapStatistics());
+
+// __________________________________________________________________
+
 
 // BELOW ***
-// Create a timer counting in 500ms delays logged to the console ✅
-// Create a timer written as a percentage ✅
+// Create a question array and collect answers in an array
+// Do this using asyncronous functions (after the end of the Q's)
 
-const waitTime = 3000;
-console.log(`setting a ${waitTime/1000} second delay`);
-const timerFinished = () => {
-    clearInterval(interval)
-    console.log("done")
-};
+const readline = require("readline");
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-setTimeout(timerFinished, waitTime);
+const questions = [
+  "what is you name?",
+  "where do you live buddy?",
+  "what ya gonna do with the new knowledge?",
+];
 
-const waitInterval = 500;
-let currentTime = 0;
+function collectAnswers(questions, done) {
+  const answers = [];
 
-const incTime = () => {
-    currentTime += waitInterval;
-    const p = Math.floor ((currentTime / waitTime) * 100);
-    process.stdout.clearLine();
-    process.stdout.cursorTo(0);
-    process.stdout.write(`waiting... ${p}`);
-};
+  const questionsAnswered = (answer) => {
+    answers.push(answer.trim());
+    if (answers.length < questions.length) {
+      rl.question(questions[answers.length], questionsAnswered);
+    } else {
+      return done(answers);
+    }
+  };
 
-const interval = setInterval(incTime, waitInterval);
+  rl.question(questions[0], questionsAnswered);
+}
+
+collectAnswers(questions, (answers) => {
+  console.log("Thankyou for your answers, Nick!");
+  console.log(answers);
+  process.exit();
+});
 
 
 // __________________________________________________________________
 
 
-const path = require("path");
+
+

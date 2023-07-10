@@ -1,0 +1,27 @@
+const questions = [
+  "what is you name?",
+  "where do you live buddy?",
+  "what ya gonna do with the new knowledge?",
+];
+
+let answers = []
+
+function ask (i) {
+    process.stdout.write(`\n\n\n\n ${questions[i]}`);
+    process.stdout.write(`  >  `);
+}
+
+// whenever data is raised, we will run the callback function below
+process.stdout.on("data", function (data) {
+    answers.push(data.stoString().trim());
+
+    if (answers.length < questions.length) {
+        ask(answers.length);
+    } else {
+        process.exit();
+    }
+});
+
+process.on("exit", function () {
+    process.stdout.write ("\n\n\n\n ")
+})

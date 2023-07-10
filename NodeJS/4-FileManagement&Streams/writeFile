@@ -1,0 +1,26 @@
+const fs = require("fs");
+
+let md = `
+this is a new file 
+==================
+
+ES6 Template Strings are cool. They honor whitespace.
+
+* Template strings
+* Node file  system
+* Readline CLIs
+
+`;
+
+// Add a file to the folder in javascript.md format
+fs.writeFile ("javascript.md", md.trim(), function (err) {
+    if (err) {
+        throw err;
+    }
+    // Append more text to the file after... ?
+    fs.appendFileSync(
+        "javascript.md",
+        "\n\n### Node.js Everyone...!"
+    );
+    console.log("markdown Created");
+}); 
